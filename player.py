@@ -1,6 +1,7 @@
 import pygame
 from constants import (
     PLAYER_RADIUS,
+    PLAYER_SPAWN_TIME,
     PLAYER_SHOOT_COOLDOWN,
     PLAYER_SHOOT_SPEED,
     PLAYER_TURN_SPEED,
@@ -15,6 +16,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shoot_timer = 0
+        self.spawn_timer = PLAYER_SPAWN_TIME
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -33,6 +35,10 @@ class Player(CircleShape):
 
     def update(self, dt):
         self.shoot_timer -= dt
+        self.spawn_timer = pygame.math.clamp(
+            self.spawn_timer - dt, 0, PLAYER_SPAWN_TIME
+        )
+
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
