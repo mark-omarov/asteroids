@@ -13,6 +13,8 @@ from shot import Shot
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    bg_image = pygame.image.load("background.png")
+    bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
 
@@ -48,6 +50,7 @@ def main():
                     shot.kill()
 
         screen.fill("black")
+        screen.blit(bg_image, (0, 0))
 
         for obj in drawable:
             obj.draw(screen)
