@@ -18,9 +18,7 @@ class Player(CircleShape):
 
     def draw(self, screen):
         line_width = 2
-        pygame.draw.polygon(
-            screen, pygame.color.Color(255, 255, 255), self.triangle(), line_width
-        )
+        pygame.draw.polygon(screen, "white", self.triangle(), line_width)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
