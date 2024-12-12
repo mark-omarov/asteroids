@@ -1,5 +1,6 @@
 import pygame
 from constants import (
+    PLAYER_BLINK_INTERVAL,
     PLAYER_RADIUS,
     PLAYER_SPAWN_TIME,
     PLAYER_SHOOT_COOLDOWN,
@@ -17,6 +18,8 @@ class Player(CircleShape):
         self.rotation = 0
         self.shoot_timer = 0
         self.spawn_timer = PLAYER_SPAWN_TIME
+        self.blink_timer = 0
+        self.visible = True
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -27,6 +30,9 @@ class Player(CircleShape):
         return [a, b, c]
 
     def draw(self, screen):
+        if self.spawn_timer > 0:
+            if not self.visible:
+                return
         line_width = 2
         pygame.draw.polygon(screen, "white", self.triangle(), line_width)
 
@@ -34,10 +40,14 @@ class Player(CircleShape):
         self.rotation += PLAYER_TURN_SPEED * dt
 
     def update(self, dt):
+        self.spawn_timer = max(self.spawn_timer - dt, 0)
+        if self.spawn_timer > 0:
+            self.blink_timer += dt
+            if self.blink_timer >= PLAYER_BLINK_INTERVAL:
+                self.visible = not self.visible
+                self.blink_timer = 0
+
         self.shoot_timer -= dt
-        self.spawn_timer = pygame.math.clamp(
-            self.spawn_timer - dt, 0, PLAYER_SPAWN_TIME
-        )
 
         keys = pygame.key.get_pressed()
 
