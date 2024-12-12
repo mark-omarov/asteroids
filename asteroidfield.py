@@ -12,6 +12,7 @@ from constants import (
 
 
 class AsteroidField(pygame.sprite.Sprite):
+    containers: pygame.sprite.Group
     edges = [
         [
             pygame.Vector2(1, 0),
