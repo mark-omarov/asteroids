@@ -3,10 +3,10 @@ from constants import PLAYER_SPAWN_TIME
 
 
 class GameManager(pygame.sprite.Sprite):
-    containers: pygame.sprite.Group
+    containers: tuple[pygame.sprite.Group, ...] = ()
 
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self, self.containers)
+        pygame.sprite.Sprite.__init__(self, *self.containers)
         self.score = 0
         self.lives = 3
         self.game_over = False

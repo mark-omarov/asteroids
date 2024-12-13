@@ -29,8 +29,8 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     Shot.containers = (shots, updatable, drawable)
-    AsteroidField.containers = updatable
-    GameManager.containers = updatable
+    AsteroidField.containers = (updatable,)
+    GameManager.containers = (updatable,)
 
     game_manager = GameManager()
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
