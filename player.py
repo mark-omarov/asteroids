@@ -8,37 +8,25 @@ from constants import (
     PLAYER_TURN_SPEED,
     PLAYER_SPEED,
 )
-from circleshape import CircleShape
+from triangleshape import TriangleShape
 from shot import Shot
 
-
-class Player(CircleShape):
+class Player(TriangleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
-        self.rotation = 0
         self.shoot_timer = 0
         self.spawn_timer = PLAYER_SPAWN_TIME
         self.blink_timer = 0
         self.visible = True
-        self.velocity = pygame.Vector2(0, 0)
         self.acceleration = 300
         self.max_speed = PLAYER_SPEED
         self.friction = 0.97
-
-    def triangle(self):
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
-        a = self.position + forward * self.radius
-        b = self.position - forward * self.radius - right
-        c = self.position - forward * self.radius + right
-        return [a, b, c]
 
     def draw(self, screen):
         if self.spawn_timer > 0:
             if not self.visible:
                 return
-        line_width = 2
-        pygame.draw.polygon(screen, "white", self.triangle(), line_width)
+        super().draw(screen)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt

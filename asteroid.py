@@ -2,7 +2,7 @@ import pygame
 import random
 import math
 from circleshape import CircleShape
-from constants import ASTEROID_MIN_RADIUS
+from constants import ASTEROID_MIN_RADIUS, DEBUG_COLLISIONS, DEBUG_COLOR
 
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
@@ -32,11 +32,37 @@ class Asteroid(CircleShape):
             screen_vertices,
             line_width
         )
+        
+        if DEBUG_COLLISIONS:
+            self.draw_debug(screen)
+    
+    def draw_debug(self, screen):
+        pygame.draw.circle(
+            screen,
+            DEBUG_COLOR,
+            self.position,
+            self.radius,
+            1  # Line width
+        )
+        
+        screen_vertices = []
+        for x, y in self.vertices:
+            vertex_pos = (self.position.x + x, self.position.y + y)
+            screen_vertices.append(vertex_pos)
+            pygame.draw.circle(
+                screen,
+                DEBUG_COLOR,
+                vertex_pos,
+                2  # Radius
+            )
 
     def update(self, dt):
         self.position += self.velocity * dt
 
     def collides_with(self, other):
+        if hasattr(other, 'get_vertices'):
+            return other.collides_with(self)
+        
         distance = self.position.distance_to(other.position)
         return distance <= self.radius + other.radius
 
