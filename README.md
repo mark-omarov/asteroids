@@ -2,8 +2,9 @@
 
 A simple Asteroids-like game built with Python and Pygame.
 
-![Kapture 2024-12-12 at 18 52 11](https://github.com/user-attachments/assets/630d5eda-0c10-430b-90ef-2e80b7eaaa21)
+**Preview:**
 
+![Kapture 2025-05-06 at 11 25 41](https://github.com/user-attachments/assets/3f101cc0-4701-470c-a3cb-80c1545bc97a)
 
 ## Roadmap
 
