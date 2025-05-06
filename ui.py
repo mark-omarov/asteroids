@@ -38,8 +38,8 @@ def create_button(screen, text, x, y, width, height, color, hover_color, text_co
 def show_controls_guide(screen, x, y, font):
     controls = [
         "CONTROLS:",
-        "Arrow UP: Thrust forward",
-        "Arrow LEFT/RIGHT: Rotate ship",
+        "W/S: Thrust forward/backward",
+        "A/D: Rotate ship",
         "SPACE: Fire weapon",
     ]
 
