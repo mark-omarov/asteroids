@@ -9,7 +9,7 @@ A simple Asteroids-like game built with Python and Pygame.
 
 - [x] Add a scoring system
 - [x] Implement multiple lives and respawning
-- [ ] Add acceleration to the player movement
+- [x] Add acceleration to the player movement
 - [x] Add a background image
 - [ ] Make the asteroids lumpy instead of perfectly round
 - [ ] Make the player have a triangular hit box instead of a circular one

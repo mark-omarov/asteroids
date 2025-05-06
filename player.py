@@ -20,6 +20,10 @@ class Player(CircleShape):
         self.spawn_timer = PLAYER_SPAWN_TIME
         self.blink_timer = 0
         self.visible = True
+        self.velocity = pygame.Vector2(0, 0)
+        self.acceleration = 300
+        self.max_speed = PLAYER_SPEED
+        self.friction = 0.97
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -51,6 +55,9 @@ class Player(CircleShape):
 
         keys = pygame.key.get_pressed()
 
+        if not keys[pygame.K_w] and not keys[pygame.K_s]:
+            self.apply_friction()
+
         if keys[pygame.K_a]:
             self.rotate(dt * -1)
         if keys[pygame.K_d]:
@@ -61,10 +68,21 @@ class Player(CircleShape):
             self.move(dt * -1)
         if keys[pygame.K_SPACE]:
             self.shoot()
+            
+        self.position += self.velocity * dt
 
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        self.position += forward * PLAYER_SPEED * dt
+        self.velocity += forward * self.acceleration * dt
+        
+        if self.velocity.length() > self.max_speed:
+            self.velocity = self.velocity.normalize() * self.max_speed
+
+    def apply_friction(self):
+        self.velocity *= self.friction
+        
+        if self.velocity.length() < 0.1:
+            self.velocity = pygame.Vector2(0, 0)
 
     def shoot(self):
         if self.shoot_timer > 0:
