@@ -17,6 +17,7 @@ A simple Asteroids-like game built with Python and Pygame.
 
 Maybe someday:
 
+- [x] Add a menu screen
 - [ ] Add an explosion effect for the asteroids
 - [ ] Create different weapon types
 - [ ] Add a shield power-up
